@@ -3,35 +3,70 @@ import { Message } from '../models/message.model';
 
 @Injectable()
 export class MessagesService {
-  getMessages() {
+  private loadMessages() {
     return JSON.parse(localStorage.getItem('messages'));
   }
 
-  getMessage(id) {
-    const messages = this.getMessages();
-
-    return messages.find((message) => {
-      return id === message.id;
-    });
-  }
-
-  setMessage(message: Message) {
-    const messages = this.getMessages();
-
-    messages.push(message);
-
+  private saveMessages(messages) {
     localStorage.setItem('messages', JSON.stringify(messages));
   }
 
-  deleteMessage(id) {
-    const messages = this.getMessages();
+  getMessages(): Promise<Message[]> {
+    return new Promise((resolve) => {
+      const messages = this.loadMessages();
 
-    messages.find((message, index) => {
-      if (id === message.id) {
-        messages.splice(index, 1);
+      resolve(messages);
+    });
+  }
+
+  getMessage(id: string): Promise<Message> {
+    return new Promise((resolve) => {
+      const messages = this.loadMessages();
+      let output = null;
+
+      if (messages) {
+        output = messages.find(channel => {
+          return id === channel.id;
+        });
       }
-    });
 
-    localStorage.setItem('messages', JSON.stringify(messages));
+      resolve(output);
+    });
+  }
+
+  addMessage(channel: Message): Promise<Message[]> {
+    return new Promise((resolve) => {
+      const messages = this.loadMessages() || [];
+      messages.push(channel);
+      this.saveMessages(messages);
+
+      resolve(messages);
+    });
+  }
+
+  editMessage(channel: Message): Promise<Message[]> {
+    return new Promise((resolve) => {
+      this.deleteMessage(channel.id).then(data => {
+        data['messages'].splice(data['lastDeletedPosition'], 0, channel);
+
+        this.saveMessages(data['messages']);
+
+        resolve(data['messages']);
+      });
+    });
+  }
+
+  deleteMessage(id: string) {
+    return new Promise((resolve) => {
+      const messages = this.loadMessages();
+      const index = messages.findIndex((channel) => {
+        return id === channel.id;
+      });
+
+      messages.splice(index, 1);
+      this.saveMessages(messages);
+
+      resolve({ messages: messages, lastDeletedPosition: index });
+    });
   }
 }

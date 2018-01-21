@@ -9,6 +9,10 @@ export class ChannelsService {
     return JSON.parse(localStorage.getItem('channels'));
   }
 
+  private saveChannels(channels) {
+    localStorage.setItem('channels', JSON.stringify(channels));
+  }
+
   getChannels(): Promise<Channel[]> {
     return new Promise((resolve) => {
       const channels = this.loadChannels();
@@ -36,7 +40,7 @@ export class ChannelsService {
     return new Promise((resolve) => {
       const channels = this.loadChannels() || [];
       channels.push(channel);
-      localStorage.setItem('channels', JSON.stringify(channels));
+      this.saveChannels(channels);
 
       resolve(channels);
     });
@@ -44,27 +48,27 @@ export class ChannelsService {
 
   editChannel(channel: Channel): Promise<Channel[]> {
     return new Promise((resolve) => {
-      this.deleteChannel(channel.id).then((channelsNew: Channel[]) => {
-        channelsNew.push(channel);
-        localStorage.setItem('channels', JSON.stringify(channelsNew));
+      this.deleteChannel(channel.id).then(data => {
+        data['channels'].splice(data['lastDeletedPosition'], 0, channel);
 
-        resolve(channelsNew);
+        this.saveChannels(data['channels']);
+
+        resolve(data['channels']);
       });
     });
   }
 
-  deleteChannel(id: string): Promise<Channel[]> {
+  deleteChannel(id: string) {
     return new Promise((resolve) => {
       const channels = this.loadChannels();
-      channels.find((channel, index) => {
-        if (id === channel.id) {
-          channels.splice(index, 1);
-        }
+      const index = channels.findIndex((channel) => {
+        return id === channel.id;
       });
 
-      localStorage.setItem('channels', JSON.stringify(channels));
+      channels.splice(index, 1);
+      this.saveChannels(channels);
 
-      resolve(channels);
+      resolve({ channels: channels, lastDeletedPosition: index });
     });
   }
 }
