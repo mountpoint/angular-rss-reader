@@ -7,6 +7,7 @@ import { ChannelFormComponent } from './channels/channel-form/channel-form.compo
 import { ChannelComponent } from './channels/channel/channel.component';
 import { HomeComponent } from './home/home.component';
 import { ChannelResolver } from './shared/services/channel-resolver.service';
+import { StatisticComponent } from './statistics/statistic/statistic.component';
 
 const routes = [
   /*{
@@ -40,7 +41,14 @@ const routes = [
   },
   {
     path: 'statistics',
-    component: StatisticsComponent
+    component: StatisticsComponent,
+    children: [
+      {
+        path: ':id',
+        component: StatisticComponent,
+        resolve: { channel: ChannelResolver } // TODO
+      }
+    ]
   },
   {
     path: '**',

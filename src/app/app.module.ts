@@ -17,6 +17,8 @@ import { MessagesService } from './shared/services/messages.service';
 import { HelperService } from './shared/services/helper.service';
 import { ChannelResolver } from './shared/services/channel-resolver.service';
 import { TrimPipe } from './shared/pipes/trim.pipe';
+import { ChannelsListComponent } from './channels/channels-list/channels-list.component';
+import { StatisticComponent } from './statistics/statistic/statistic.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { TrimPipe } from './shared/pipes/trim.pipe';
     ChannelsComponent,
     ChannelFormComponent,
     ChannelComponent,
-    TrimPipe
+    TrimPipe,
+    ChannelsListComponent,
+    StatisticComponent
   ],
   imports: [
     BrowserModule,
