@@ -1,0 +1,14 @@
+<h4>{{ editMode ? 'Editing' : 'Add a new' }} RSS channel</h4>
+
+<form>
+  <div class="form-group">
+    <label for="rss-name">Name</label>
+    <input type="text" [(ngModel)]="channel.name" name="rss_name" class="form-control is-valid" id="rss-name">
+  </div>
+  <div class="form-group">
+    <label for="rss-url">RSS URL</label>
+    <input type="text" [(ngModel)]="channel.url" name="rss_url" class="form-control is-invalid" id="rss-url">
+  </div>
+
+  <button class="btn btn-primary" (click)="onSave()">Save</button>
+</form>
