@@ -1,9 +1,13 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Channel } from '../models/channel.model';
+import { HttpClient } from '@angular/common/http';
+import { Rss2jsonService } from './rss2json.service';
 
 @Injectable()
 export class ChannelsService {
   channelsChanged = new EventEmitter<Channel[]>();
+
+  constructor(private http: HttpClient, private rss2json: Rss2jsonService) { }
 
   private loadChannels() {
     return JSON.parse(localStorage.getItem('channels'));
@@ -38,11 +42,21 @@ export class ChannelsService {
 
   addChannel(channel: Channel): Promise<Channel[]> {
     return new Promise((resolve) => {
-      const channels = this.loadChannels() || [];
-      channels.push(channel);
-      this.saveChannels(channels);
+      this.parseChannel(channel.link).subscribe((response: any) => {
+        if (response.status === 'ok') {
+          channel.title = response.feed.title;
+          channel.link = response.feed.link;
+          channel.description = response.feed.description;
+          channel.image = response.feed.image;
+          channel.countMessages = response.items.length;
 
-      resolve(channels);
+          const channels = this.loadChannels() || [];
+          channels.push(channel);
+          this.saveChannels(channels);
+
+          resolve(channels);
+        }
+      });
     });
   }
 
@@ -70,5 +84,18 @@ export class ChannelsService {
 
       resolve({ channels: channels, lastDeletedPosition: index });
     });
+  }
+
+  parseChannel(url: string) {
+    return this.http.get(
+      this.rss2json.getEndpoint(),
+      {
+        params: {
+          rss_url: url,
+          api_key: this.rss2json.getApiKey(),
+          count: this.rss2json.getCountMessages(),
+        }
+      }
+    );
   }
 }

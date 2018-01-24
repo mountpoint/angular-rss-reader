@@ -1,3 +1,17 @@
-<h4>{{ channel.name }}</h4>
+<div class="buttons">
+  <button class="btn btn-success btn-sm" (click)="refreshChannel()">Refresh</button>
+  <a [routerLink]="['/channels', channel.id, 'edit']" class="btn btn-primary btn-sm">Edit channel</a>
+  <button class="btn btn-danger btn-sm" (click)="deleteChannel()">Delete channel</button>
+</div>
 
-<a [routerLink]="['/channels', channel.id, 'edit']" class="btn btn-primary">Edit channel</a>
+<h4>{{ channel.title }}</h4>
+
+<img [src]="channel.image" alt="">
+
+<p>{{ channel.description }}</p>
+
+<ul>
+  <li *ngFor="let message of messages">
+    <a href="{{ message.link }}" target="_blank">{{ message.title }}</a>
+  </li>
+</ul>

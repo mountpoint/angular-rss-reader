@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, Params, Router } from '@angular/router';
 import { ChannelsService } from '../../shared/services/channels.service';
 import { Channel } from '../../shared/models/channel.model';
+import { Message } from '../../shared/models/message.model';
 
 @Component({
   selector: 'app-channel',
@@ -10,8 +11,12 @@ import { Channel } from '../../shared/models/channel.model';
 })
 export class ChannelComponent implements OnInit {
   channel: Channel;
+  messages: Message[];
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private channelsService: ChannelsService) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -28,5 +33,18 @@ export class ChannelComponent implements OnInit {
         });
       }
     });
+  }
+
+  deleteChannel() {
+    if (confirm('Are you sure?')) {
+      this.channelsService.deleteChannel(this.channel.id).then((channels: any) => {
+        this.channelsService.channelsChanged.emit(channels.channels);
+        this.router.navigate(['/channels']);
+      });
+    }
+  }
+
+  refreshChannel() {
+    alert('234');
   }
 }

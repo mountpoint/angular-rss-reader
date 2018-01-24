@@ -19,6 +19,8 @@ import { ChannelResolver } from './shared/services/channel-resolver.service';
 import { TrimPipe } from './shared/pipes/trim.pipe';
 import { ChannelsListComponent } from './channels/channels-list/channels-list.component';
 import { StatisticComponent } from './statistics/statistic/statistic.component';
+import { HttpClientModule } from '@angular/common/http';
+import { Rss2jsonService } from './shared/services/rss2json.service';
 
 @NgModule({
   declarations: [
@@ -38,12 +40,14 @@ import { StatisticComponent } from './statistics/statistic/statistic.component';
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [
     ChannelsService,
     MessagesService,
     HelperService,
+    Rss2jsonService,
     ChannelResolver
   ],
   bootstrap: [AppComponent]

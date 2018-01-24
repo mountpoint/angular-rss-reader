@@ -1,8 +1,8 @@
 export class Message {
   constructor(public id: string,
-              public name: string,
+              public title: string,
               public channelId: number,
-              public author: string,
-              public text: string,
-              public date: number) { }
+              public link: string,
+              public description: string,
+              public pubDate: number) { }
 }

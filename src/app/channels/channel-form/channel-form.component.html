@@ -1,14 +1,20 @@
 <h4>{{ editMode ? 'Editing' : 'Add a new' }} RSS channel</h4>
 
-<form>
-  <div class="form-group">
-    <label for="rss-name">Name</label>
-    <input type="text" [(ngModel)]="channel.name" name="rss_name" class="form-control is-valid" id="rss-name">
-  </div>
+<form (ngSubmit)="onSave()" #channelForm="ngForm">
   <div class="form-group">
     <label for="rss-url">RSS URL</label>
-    <input type="text" [(ngModel)]="channel.url" name="rss_url" class="form-control is-invalid" id="rss-url">
+    <input type="text"
+           [(ngModel)]="channel.link"
+           name="rss_url"
+           class="form-control"
+           id="rss-url"
+           required
+           #rssUrl="ngModel"
+           [ngClass]="{
+             'is-invalid': !rssUrl.valid && rssUrl.touched,
+             'is-valid': rssUrl.valid && rssUrl.touched
+           }">
   </div>
 
-  <button class="btn btn-primary" (click)="onSave()">Save</button>
+  <button class="btn btn-primary" type="submit" [disabled]="channelForm.invalid">Save</button>
 </form>

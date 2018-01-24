@@ -19,7 +19,7 @@ export class ChannelFormComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.channel = new Channel(this.helperService.generateId(), '', '');
+    this.channel = new Channel(this.helperService.generateId(), '');
 
     this.route.params.subscribe((params: Params) => {
       const id = params['id'];
@@ -39,16 +39,10 @@ export class ChannelFormComponent implements OnInit {
   }
 
   onSave() {
-    if (this.editMode) {
-      this.channelsService.editChannel(this.channel).then((channels: Channel[]) => {
+    this.channelsService[this.editMode ? 'editChannel' : 'addChannel'](this.channel)
+      .then((channels: Channel[]) => {
         this.channelsService.channelsChanged.emit(channels);
-        this.router.navigate(['/channels']);
+        this.router.navigate(['/channels', this.channel.id]);
       });
-    } else {
-      this.channelsService.addChannel(this.channel).then((channels: Channel[]) => {
-        this.channelsService.channelsChanged.emit(channels);
-        this.router.navigate(['/channels', this.channel.id, 'edit']);
-      });
-    }
   }
 }

@@ -1,5 +1,8 @@
 export class Channel {
   countMessages: number;
+  title: string;
+  description: string;
+  image: string;
 
-  constructor(public id: string, public name: string, public url: string) { }
+  constructor(public id: string, public link: string) { }
 }
