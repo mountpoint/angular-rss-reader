@@ -1,8 +1,10 @@
+import { Message } from './message.model';
+
 export class Channel {
-  countMessages: number;
   title: string;
   description: string;
   image: string;
+  messages: Message[];
 
-  constructor(public id: string, public link: string) { }
+  constructor(public id: string, public url: string) { }
 }

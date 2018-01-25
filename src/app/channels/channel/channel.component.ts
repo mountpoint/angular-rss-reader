@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Data, Params, Router } from '@angular/router';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { ChannelsService } from '../../shared/services/channels.service';
 import { Channel } from '../../shared/models/channel.model';
-import { Message } from '../../shared/models/message.model';
 
 @Component({
   selector: 'app-channel',
@@ -11,26 +10,18 @@ import { Message } from '../../shared/models/message.model';
 })
 export class ChannelComponent implements OnInit {
   channel: Channel;
-  messages: Message[];
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private channelsService: ChannelsService) { }
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private channelsService: ChannelsService) { }
 
   ngOnInit() {
-    this.route.params.subscribe((params: Params) => {
-      const id = params['id'];
-
-      if (id) {
-        this.route.data.subscribe((data: Data) => {
-          if (data['channel']) {
-            this.channel = data['channel'];
-          } else {
-            alert('Channel not found');
-            this.router.navigate(['/channels']);
-          }
-        });
+    this.route.data.subscribe((data: Data) => {
+      if (data['channel']) {
+        this.channel = data['channel'];
+      } else {
+        alert('Channel not found');
+        this.router.navigate(['/channels']);
       }
     });
   }
@@ -45,6 +36,6 @@ export class ChannelComponent implements OnInit {
   }
 
   refreshChannel() {
-    alert('234');
+    alert('TODO');
   }
 }

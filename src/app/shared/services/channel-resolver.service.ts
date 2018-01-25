@@ -9,7 +9,8 @@ import { ChannelsService } from './channels.service';
 export class ChannelResolver implements Resolve<Channel> {
   constructor(private channelsService: ChannelsService) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Channel> | Promise<Channel> | Channel {
+  resolve(route: ActivatedRouteSnapshot,
+          state: RouterStateSnapshot): Observable<Channel> | Promise<Channel> | Channel {
     return this.channelsService.getChannel(route.params['id']);
   }
 }

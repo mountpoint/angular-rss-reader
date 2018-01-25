@@ -2,12 +2,16 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Channel } from '../models/channel.model';
 import { HttpClient } from '@angular/common/http';
 import { Rss2jsonService } from './rss2json.service';
+import { Message } from '../models/message.model';
+import { HelperService } from './helper.service';
 
 @Injectable()
 export class ChannelsService {
   channelsChanged = new EventEmitter<Channel[]>();
 
-  constructor(private http: HttpClient, private rss2json: Rss2jsonService) { }
+  constructor(private http: HttpClient,
+              private rss2json: Rss2jsonService,
+              private helperService: HelperService) { }
 
   private loadChannels() {
     return JSON.parse(localStorage.getItem('channels'));
@@ -42,13 +46,31 @@ export class ChannelsService {
 
   addChannel(channel: Channel): Promise<Channel[]> {
     return new Promise((resolve) => {
-      this.parseChannel(channel.link).subscribe((response: any) => {
+      this.parseChannel(channel.url).subscribe((response: any) => {
         if (response.status === 'ok') {
           channel.title = response.feed.title;
-          channel.link = response.feed.link;
+          channel.url = response.feed.url;
           channel.description = response.feed.description;
           channel.image = response.feed.image;
-          channel.countMessages = response.items.length;
+          channel.messages = [];
+
+          for (const item of response.items) {
+            let enclosure = '';
+            if (Object.keys(item.enclosure).length !== 0 && item.enclosure.type.indexOf('image') !== -1) {
+              enclosure = item.enclosure.link;
+            }
+            const message = new Message(
+              this.helperService.generateId(),
+              item.title,
+              item.link,
+              item.description,
+              item.pubDate,
+              item.author,
+              enclosure
+            );
+
+            channel.messages.push(message);
+          }
 
           const channels = this.loadChannels() || [];
           channels.push(channel);

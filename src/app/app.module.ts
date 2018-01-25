@@ -21,6 +21,13 @@ import { ChannelsListComponent } from './channels/channels-list/channels-list.co
 import { StatisticComponent } from './statistics/statistic/statistic.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Rss2jsonService } from './shared/services/rss2json.service';
+import { MessageComponent } from './channels/channel/message/message.component';
+import { MessageResolver } from './shared/services/message-resolver.service';
+import { StatisticResolver } from './shared/services/statistic-resolver.service';
+import { StatisticService } from './shared/services/statistic.service';
+import { ChartModule } from 'angular-highcharts';
+import { MessagesListComponent } from './channels/channel/messages-list/messages-list.component';
+import { StatisticMessageComponent } from './statistics/statistic/statistic-message/statistic-message.component';
 
 @NgModule({
   declarations: [
@@ -29,26 +36,33 @@ import { Rss2jsonService } from './shared/services/rss2json.service';
     FooterComponent,
     NotFoundComponent,
     HomeComponent,
-    StatisticsComponent,
     ChannelsComponent,
     ChannelFormComponent,
     ChannelComponent,
     TrimPipe,
     ChannelsListComponent,
-    StatisticComponent
+    StatisticsComponent,
+    StatisticComponent,
+    StatisticMessageComponent,
+    MessageComponent,
+    MessagesListComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ChartModule
   ],
   providers: [
     ChannelsService,
     MessagesService,
+    StatisticService,
     HelperService,
     Rss2jsonService,
-    ChannelResolver
+    ChannelResolver,
+    MessageResolver,
+    StatisticResolver
   ],
   bootstrap: [AppComponent]
 })

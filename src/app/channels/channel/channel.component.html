@@ -6,12 +6,16 @@
 
 <h4>{{ channel.title }}</h4>
 
-<img [src]="channel.image" alt="">
+<img [src]="channel.image" class="channel-image" alt="">
 
 <p>{{ channel.description }}</p>
 
-<ul>
-  <li *ngFor="let message of messages">
-    <a href="{{ message.link }}" target="_blank">{{ message.title }}</a>
-  </li>
-</ul>
+<app-messages-list [messages]="channel.messages"></app-messages-list>
+
+<div class="modal fade message-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

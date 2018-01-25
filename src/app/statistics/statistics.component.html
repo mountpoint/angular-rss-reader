@@ -2,10 +2,15 @@
   <div class="col-md-12">
     <div class="row">
       <div class="col-md-4">
-        <app-channels-list [section]="'/statistics'"></app-channels-list>
+        <app-channels-list [section]="'statistics'"></app-channels-list>
       </div>
 
       <div class="col-md-8">
+        <p>Number of channels - {{ channelsCount }}</p>
+        <p>Select a channel to view statistic</p>
+
+        <hr>
+
         <router-outlet></router-outlet>
       </div>
     </div>

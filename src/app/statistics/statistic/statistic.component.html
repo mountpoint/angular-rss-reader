@@ -1,3 +1,18 @@
-<p>
-  statistic works!
-</p>
+<h5>Statistic of channel</h5>
+<h4>{{ statistic.channelName }}</h4>
+
+<div class="mb-3">
+  Number of messages - {{ statistic.messagesCount }}
+  <br>
+  Number of authors - {{ statistic.authorsCount }}
+</div>
+
+<app-messages-list [messages]="statistic.messages"></app-messages-list>
+
+<div class="modal fade message-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

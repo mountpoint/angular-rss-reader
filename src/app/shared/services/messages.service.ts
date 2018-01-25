@@ -1,62 +1,46 @@
 import { Injectable } from '@angular/core';
 import { Message } from '../models/message.model';
+import { ChannelsService } from './channels.service';
+import { Channel } from '../models/channel.model';
 
 @Injectable()
 export class MessagesService {
-  private loadMessages() {
-    return JSON.parse(localStorage.getItem('messages'));
-  }
+  constructor(private channelsService: ChannelsService) { }
 
-  private saveMessages(messages) {
-    localStorage.setItem('messages', JSON.stringify(messages));
-  }
-
-  getMessages(): Promise<Message[]> {
+  getMessage(channelId: string, messageId: string): Promise<Message> {
     return new Promise((resolve) => {
-      const messages = this.loadMessages();
+      this.channelsService.getChannel(channelId).then((channel: Channel) => {
+        let output = null;
 
-      resolve(messages);
-    });
-  }
+        if (channel.messages) {
+          output = channel.messages.find(message => {
+            return message.id === messageId;
+          });
+        }
 
-  getMessage(id: string): Promise<Message> {
-    return new Promise((resolve) => {
-      const messages = this.loadMessages();
-      let output = null;
-
-      if (messages) {
-        output = messages.find(channel => {
-          return id === channel.id;
-        });
-      }
-
-      resolve(output);
-    });
-  }
-
-  addMessage(channel: Message): Promise<Message[]> {
-    return new Promise((resolve) => {
-      const messages = this.loadMessages() || [];
-      messages.push(channel);
-      this.saveMessages(messages);
-
-      resolve(messages);
-    });
-  }
-
-  editMessage(channel: Message): Promise<Message[]> {
-    return new Promise((resolve) => {
-      this.deleteMessage(channel.id).then(data => {
-        data['messages'].splice(data['lastDeletedPosition'], 0, channel);
-
-        this.saveMessages(data['messages']);
-
-        resolve(data['messages']);
+        resolve(output);
       });
     });
   }
 
-  deleteMessage(id: string) {
+  // TODO
+  deleteMessage(channelId: string, messageId: string): Promise<Message> {
+    return new Promise((resolve) => {
+      this.channelsService.getChannel(channelId).then((channel: Channel) => {
+        let output = null;
+
+        if (channel.messages) {
+          output = channel.messages.find(message => {
+            return message.id === messageId;
+          });
+        }
+
+        resolve(output);
+      });
+    });
+  }
+
+  /*deleteMessageqwqwq(id: string) {
     return new Promise((resolve) => {
       const messages = this.loadMessages();
       const index = messages.findIndex((channel) => {
@@ -68,5 +52,5 @@ export class MessagesService {
 
       resolve({ messages: messages, lastDeletedPosition: index });
     });
-  }
+  }*/
 }

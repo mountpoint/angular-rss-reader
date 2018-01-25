@@ -8,6 +8,10 @@ import { ChannelComponent } from './channels/channel/channel.component';
 import { HomeComponent } from './home/home.component';
 import { ChannelResolver } from './shared/services/channel-resolver.service';
 import { StatisticComponent } from './statistics/statistic/statistic.component';
+import { MessageComponent } from './channels/channel/message/message.component';
+import { MessageResolver } from './shared/services/message-resolver.service';
+import { StatisticResolver } from './shared/services/statistic-resolver.service';
+import { StatisticMessageComponent } from './statistics/statistic/statistic-message/statistic-message.component';
 
 const routes = [
   /*{
@@ -30,7 +34,14 @@ const routes = [
       {
         path: ':id',
         component: ChannelComponent,
-        resolve: { channel: ChannelResolver }
+        resolve: { channel: ChannelResolver },
+        children: [
+          {
+            path: 'message/:id',
+            component: MessageComponent,
+            resolve: { message: MessageResolver }
+          }
+        ]
       },
       {
         path: ':id/edit',
@@ -44,9 +55,16 @@ const routes = [
     component: StatisticsComponent,
     children: [
       {
-        path: ':id',
+        path: ':id', // channel ID
         component: StatisticComponent,
-        resolve: { channel: ChannelResolver } // TODO
+        resolve: { statistic: StatisticResolver },
+        children: [
+          {
+            path: 'message/:id',
+            component: StatisticMessageComponent,
+            resolve: { message: MessageResolver }
+          }
+        ]
       }
     ]
   },
