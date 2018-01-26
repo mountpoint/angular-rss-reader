@@ -1,7 +1,18 @@
-<ul class="list-group list-group-flush message-list">
-  <li class="list-group-item list-group-item-action"
-      *ngFor="let message of messages"
-      (click)="loadMessage(message.id)">
-    {{ message.title }}
-  </li>
-</ul>
+<table class="table table-hover message-list">
+  <tbody>
+    <tr *ngFor="let message of messages">
+      <td (click)="loadMessage(message.id)" [ngClass]="{ bold: !message.wasRead && section !== 'statistic' }">{{ message.title }}</td>
+      <td>
+        <div *ngIf="section !== 'statistic'">
+          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Actions
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" (click)="markAsUnread(message.id)">Mark as unread</a>
+            <a class="dropdown-item" (click)="deleteMessage(message.id)">Delete</a>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

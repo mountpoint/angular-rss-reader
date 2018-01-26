@@ -11,7 +11,6 @@ import { HelperService } from '../../shared/services/helper.service';
 })
 export class ChannelFormComponent implements OnInit {
   channel: Channel;
-  editMode: boolean = false;
 
   constructor(private channelsService: ChannelsService,
               private helperService: HelperService,
@@ -27,7 +26,6 @@ export class ChannelFormComponent implements OnInit {
       if (id) {
         this.route.data.subscribe((data: Data) => {
           if (data['channel']) {
-            this.editMode = true;
             this.channel = data['channel'];
           } else {
             alert('Channel not found');
@@ -39,10 +37,9 @@ export class ChannelFormComponent implements OnInit {
   }
 
   onSave() {
-    this.channelsService[this.editMode ? 'editChannel' : 'addChannel'](this.channel)
-      .then((channels: Channel[]) => {
-        this.channelsService.channelsChanged.emit(channels);
-        this.router.navigate(['/channels', this.channel.id]);
-      });
+    this.channelsService.addChannel(this.channel).then((channels: Channel[]) => {
+      this.channelsService.channelsChanged.emit(channels);
+      this.router.navigate(['/channels', this.channel.id]);
+    });
   }
 }

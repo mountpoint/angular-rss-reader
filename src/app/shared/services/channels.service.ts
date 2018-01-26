@@ -56,9 +56,16 @@ export class ChannelsService {
 
           for (const item of response.items) {
             let enclosure = '';
-            if (Object.keys(item.enclosure).length !== 0 && item.enclosure.type.indexOf('image') !== -1) {
-              enclosure = item.enclosure.link;
+            if (item.enclosure && Object.keys(item.enclosure).length !== 0) {
+              if (item.enclosure.type && item.enclosure.type.indexOf('image') !== -1) {
+                enclosure = item.enclosure.link;
+              }
+
+              if (item.enclosure.thumbnail) {
+                enclosure = item.enclosure.thumbnail;
+              }
             }
+
             const message = new Message(
               this.helperService.generateId(),
               item.title,

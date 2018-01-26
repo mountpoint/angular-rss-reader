@@ -42,11 +42,6 @@ const routes = [
             resolve: { message: MessageResolver }
           }
         ]
-      },
-      {
-        path: ':id/edit',
-        component: ChannelFormComponent,
-        resolve: { channel: ChannelResolver }
       }
     ]
   },

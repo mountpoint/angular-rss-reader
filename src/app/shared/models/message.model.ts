@@ -1,4 +1,6 @@
 export class Message {
+  wasRead: boolean = false;
+
   constructor(public id: string,
               public title: string,
               public link: string,

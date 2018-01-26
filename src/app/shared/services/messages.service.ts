@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Message } from '../models/message.model';
 import { ChannelsService } from './channels.service';
 import { Channel } from '../models/channel.model';
 
 @Injectable()
 export class MessagesService {
+  message = new EventEmitter<Message>();
+
   constructor(private channelsService: ChannelsService) { }
 
   getMessage(channelId: string, messageId: string): Promise<Message> {
@@ -23,34 +25,35 @@ export class MessagesService {
     });
   }
 
-  // TODO
-  deleteMessage(channelId: string, messageId: string): Promise<Message> {
+  deleteMessage(channelId: string, messageId: string): Promise<Message[]> {
     return new Promise((resolve) => {
       this.channelsService.getChannel(channelId).then((channel: Channel) => {
-        let output = null;
+        const index = channel.messages.findIndex(message => {
+          return message.id === messageId;
+        });
 
-        if (channel.messages) {
-          output = channel.messages.find(message => {
-            return message.id === messageId;
-          });
-        }
+        channel.messages.splice(index, 1);
 
-        resolve(output);
+        this.channelsService.editChannel(channel).then(() => {
+          resolve(channel.messages);
+        });
       });
     });
   }
 
-  /*deleteMessageqwqwq(id: string) {
+  setReadStatus(status: boolean, channelId: string, messageId: string) {
     return new Promise((resolve) => {
-      const messages = this.loadMessages();
-      const index = messages.findIndex((channel) => {
-        return id === channel.id;
+      this.channelsService.getChannel(channelId).then((channel: Channel) => {
+        const index = channel.messages.findIndex(message => {
+          return message.id === messageId;
+        });
+
+        channel.messages[index].wasRead = status;
+
+        this.channelsService.editChannel(channel).then(() => {
+          resolve(channel.messages[index]);
+        });
       });
-
-      messages.splice(index, 1);
-      this.saveMessages(messages);
-
-      resolve({ messages: messages, lastDeletedPosition: index });
     });
-  }*/
+  }
 }
