@@ -1,11 +1,8 @@
-<p align="center">
-
 # Angular RSS Reader
 
 Simple RSS reader based on Angular 5 framework.
 
 [![Dependency Status](https://david-dm.org/mountpoint/angular-rss-reader.svg)](https://david-dm.org/mountpoint/angular-rss-reader)
-</p>
 
 ## Development server
 
