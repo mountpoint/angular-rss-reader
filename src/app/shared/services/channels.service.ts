@@ -45,7 +45,7 @@ export class ChannelsService {
   }
 
   addChannel(channel: Channel): Promise<Channel[]> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       this.parseChannel(channel.url).subscribe((response: any) => {
         if (response.status === 'ok') {
           channel.title = response.feed.title;
@@ -84,6 +84,8 @@ export class ChannelsService {
           this.saveChannels(channels);
 
           resolve(channels);
+        } else {
+          reject(response.message);
         }
       });
     });

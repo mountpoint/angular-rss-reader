@@ -37,9 +37,14 @@ export class ChannelFormComponent implements OnInit {
   }
 
   onSave() {
-    this.channelsService.addChannel(this.channel).then((channels: Channel[]) => {
-      this.channelsService.channelsChanged.emit(channels);
-      this.router.navigate(['/channels', this.channel.id]);
-    });
+    this.channelsService.addChannel(this.channel).then(
+      (channels: Channel[]) => {
+        this.channelsService.channelsChanged.emit(channels);
+        this.router.navigate(['/channels', this.channel.id]);
+      },
+      (error) => {
+        alert(error);
+      },
+    );
   }
 }
