@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Message } from '../../../shared/models/message.model';
-import { MessagesService } from '../../../shared/services/messages.service';
 declare var $: any;
 
 @Component({

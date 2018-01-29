@@ -14,7 +14,7 @@ export class MessagesService {
       this.channelsService.getChannel(channelId).then((channel: Channel) => {
         let output = null;
 
-        if (channel.messages) {
+        if (channel && channel.messages) {
           output = channel.messages.find(message => {
             return message.id === messageId;
           });

@@ -14,7 +14,7 @@ export class StatisticsComponent implements OnInit {
 
   ngOnInit() {
     this.channelsService.getChannels().then((channels: Channel[]) => {
-      this.channelsCount = channels.length;
+      this.channelsCount = channels ? channels.length : 0;
     });
   }
 
