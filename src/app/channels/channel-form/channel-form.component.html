@@ -1,0 +1,20 @@
+<h4>Add a new RSS channel</h4>
+
+<form (ngSubmit)="onSave()" #channelForm="ngForm">
+  <div class="form-group">
+    <label for="rss-url">RSS URL</label>
+    <input type="text"
+           [(ngModel)]="channel.url"
+           name="rss_url"
+           class="form-control"
+           id="rss-url"
+           required
+           #rssUrl="ngModel"
+           [ngClass]="{
+             'is-invalid': !rssUrl.valid && rssUrl.touched,
+             'is-valid': rssUrl.valid && rssUrl.touched
+           }">
+  </div>
+
+  <button class="btn btn-primary" type="submit" [disabled]="channelForm.invalid">Save</button>
+</form>

@@ -1,0 +1,8 @@
+<div class="list-group channels-list">
+  <a [routerLink]="['/' + section, channel.id]"
+     routerLinkActive="active"
+     *ngFor="let channel of channels"
+     class="list-group-item list-group-item-action">
+    {{ channel.title | trim:0:30 }}
+  </a>
+</div>
