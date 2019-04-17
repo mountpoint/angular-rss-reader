@@ -89,6 +89,7 @@ export class StatisticService {
           }
         },
         series: [{
+          type: 'pie',
           name: 'Frequency',
           data: chartData
         }]
