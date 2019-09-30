@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Channel } from '../../shared/models/channel.model';
+import { Channel } from '../../core/models/channel.model';
 import { ActivatedRoute, Data, Params, Router } from '@angular/router';
-import { ChannelsService } from '../../shared/services/channels.service';
-import { HelperService } from '../../shared/services/helper.service';
+import { ChannelsService } from '../../core/services/channels.service';
+import { HelperService } from '../../core/services/helper.service';
 
 @Component({
   selector: 'app-channel-form',

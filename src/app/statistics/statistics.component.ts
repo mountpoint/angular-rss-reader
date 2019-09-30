@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Channel } from '../shared/models/channel.model';
-import { ChannelsService } from '../shared/services/channels.service';
+import { Channel } from '../core/models/channel.model';
+import { ChannelsService } from '../core/services/channels.service';
 
 @Component({
   selector: 'app-statistics',

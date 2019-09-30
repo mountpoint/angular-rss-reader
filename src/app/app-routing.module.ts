@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
+import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+
 import { StatisticsComponent } from './statistics/statistics.component';
 import { ChannelsComponent } from './channels/channels.component';
 import { ChannelFormComponent } from './channels/channel-form/channel-form.component';
 import { ChannelComponent } from './channels/channel/channel.component';
-import { HomeComponent } from './home/home.component';
-import { ChannelResolver } from './shared/services/channel-resolver.service';
+import { ChannelResolver } from './core/services/channel-resolver.service';
 import { StatisticComponent } from './statistics/statistic/statistic.component';
-import { MessageComponent } from './channels/channel/message/message.component';
-import { MessageResolver } from './shared/services/message-resolver.service';
-import { StatisticResolver } from './shared/services/statistic-resolver.service';
+import { ChannelMessageComponent } from './channels/channel/channel-message/channel-message.component';
+import { MessageResolver } from './core/services/message-resolver.service';
+import { StatisticResolver } from './core/services/statistic-resolver.service';
 import { StatisticMessageComponent } from './statistics/statistic/statistic-message/statistic-message.component';
 
 const routes = [
@@ -38,7 +40,7 @@ const routes = [
         children: [
           {
             path: 'message/:id',
-            component: MessageComponent,
+            component: ChannelMessageComponent,
             resolve: { message: MessageResolver }
           }
         ]

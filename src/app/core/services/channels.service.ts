@@ -2,7 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Channel } from '../models/channel.model';
 import { HttpClient } from '@angular/common/http';
 import { Rss2jsonService } from './rss2json.service';
-import { Message } from '../models/message.model';
+import { ChannelMessage } from '../models/channel-message.model';
 import { HelperService } from './helper.service';
 
 @Injectable()
@@ -66,7 +66,7 @@ export class ChannelsService {
               }
             }
 
-            const message = new Message(
+            const message = new ChannelMessage(
               this.helperService.generateId(),
               item.title,
               item.link,

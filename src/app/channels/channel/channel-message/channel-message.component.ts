@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
-import { ChannelMessage } from '../../../shared/models/channel-message.model';
+import { ChannelMessage } from '../../../core/models/channel-message.model';
 declare var $: any;
 
 @Component({
-  selector: 'app-message',
+  selector: 'app-channel-message',
   templateUrl: './channel-message.component.html',
   styleUrls: ['./channel-message.component.scss']
 })

@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChannelMessageComponent } from './message.component';
+import { ChannelMessageComponent } from './channel-message.component';
 
 describe('MessageComponent', () => {
   let component: ChannelMessageComponent;

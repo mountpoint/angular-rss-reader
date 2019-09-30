@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Channel } from '../../shared/models/channel.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ChannelsService } from '../../shared/services/channels.service';
+
+import { Channel } from '../../core/models/channel.model';
+import { ChannelsService } from '../../core/services/channels.service';
 
 @Component({
   selector: 'app-channels-list',
@@ -13,9 +13,7 @@ export class ChannelsListComponent implements OnInit {
 
   @Input() section: string;
 
-  constructor(private router: Router,
-              private route: ActivatedRoute,
-              private channelsService: ChannelsService) { }
+  constructor(private channelsService: ChannelsService) { }
 
   ngOnInit() {
     this.channelsService.getChannels().then((channels: Channel[]) => {
@@ -26,5 +24,4 @@ export class ChannelsListComponent implements OnInit {
       this.channels = channels;
     });
   }
-
 }

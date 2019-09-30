@@ -1,15 +1,15 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { Message } from '../models/message.model';
+import { ChannelMessage } from '../models/channel-message.model';
 import { ChannelsService } from './channels.service';
 import { Channel } from '../models/channel.model';
 
 @Injectable()
 export class MessagesService {
-  message = new EventEmitter<Message>();
+  message = new EventEmitter<ChannelMessage>();
 
   constructor(private channelsService: ChannelsService) { }
 
-  getMessage(channelId: string, messageId: string): Promise<Message> {
+  getMessage(channelId: string, messageId: string): Promise<ChannelMessage> {
     return new Promise((resolve) => {
       this.channelsService.getChannel(channelId).then((channel: Channel) => {
         let output = null;
@@ -25,7 +25,7 @@ export class MessagesService {
     });
   }
 
-  deleteMessage(channelId: string, messageId: string): Promise<Message[]> {
+  deleteMessage(channelId: string, messageId: string): Promise<ChannelMessage[]> {
     return new Promise((resolve) => {
       this.channelsService.getChannel(channelId).then((channel: Channel) => {
         const index = channel.messages.findIndex(message => {

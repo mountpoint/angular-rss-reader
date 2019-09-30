@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
-import { Message } from '../../../shared/models/message.model';
-import { StatisticService } from '../../../shared/services/statistic.service';
+import { ChannelMessage } from '../../../core/models/channel-message.model';
+import { StatisticService } from '../../../core/services/statistic.service';
 declare var $: any;
 
 @Component({
@@ -12,7 +12,7 @@ declare var $: any;
 export class StatisticMessageComponent implements OnInit {
   chart;
   descriptionLength;
-  message: Message;
+  message: ChannelMessage;
 
   constructor(private router: Router,
               private route: ActivatedRoute,

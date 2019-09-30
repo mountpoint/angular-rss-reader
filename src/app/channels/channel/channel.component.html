@@ -10,7 +10,7 @@
 
   <p>{{ channel.description }}</p>
 
-  <app-messages-list [messages]="channel.messages" [section]="'channel'"></app-messages-list>
+  <app-channel-messages-list [messages]="channel.messages" [section]="'channel'"></app-channel-messages-list>
 
   <div class="modal fade message-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">

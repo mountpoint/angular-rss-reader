@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
-import { ChannelsService } from '../../shared/services/channels.service';
-import { Channel } from '../../shared/models/channel.model';
+import { ChannelsService } from '../../core/services/channels.service';
+import { Channel } from '../../core/models/channel.model';
 
 @Component({
   selector: 'app-channel',

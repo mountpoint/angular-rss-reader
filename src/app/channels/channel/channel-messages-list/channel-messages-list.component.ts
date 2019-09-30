@@ -1,15 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Message } from '../../../shared/models/message.model';
-import { MessagesService } from '../../../shared/services/messages.service';
+import { ChannelMessage } from '../../../core/models/channel-message.model';
+import { MessagesService } from '../../../core/services/messages.service';
 
 @Component({
-  selector: 'app-messages-list',
-  templateUrl: './messages-list.component.html',
-  styleUrls: ['./messages-list.component.scss']
+  selector: 'app-channel-messages-list',
+  templateUrl: './channel-messages-list.component.html',
+  styleUrls: ['./channel-messages-list.component.scss']
 })
-export class MessagesListComponent implements OnInit {
-  @Input() messages: Message[];
+export class ChannelMessagesListComponent implements OnInit {
+  @Input() messages: ChannelMessage[];
   @Input() section: string;
 
   constructor(private router: Router,
@@ -22,7 +22,7 @@ export class MessagesListComponent implements OnInit {
   loadMessage(messageId: string) {
     this.router.navigate(['message', messageId], { relativeTo: this.route });
 
-    this.messagesService.setReadStatus(true, this.route.snapshot.params['id'], messageId).then((message: Message) => {
+    this.messagesService.setReadStatus(true, this.route.snapshot.params['id'], messageId).then((message: ChannelMessage) => {
       this.markMessage(message);
     });
   }
@@ -35,13 +35,13 @@ export class MessagesListComponent implements OnInit {
 
   deleteMessage(messageId: string) {
     if (confirm('Are you sure?')) {
-      this.messagesService.deleteMessage(this.route.snapshot.params['id'], messageId).then((messages: Message[]) => {
+      this.messagesService.deleteMessage(this.route.snapshot.params['id'], messageId).then((messages: ChannelMessage[]) => {
         this.messages = messages;
       });
     }
   }
 
-  private markMessage = (message: Message) => {
+  private markMessage = (message: ChannelMessage) => {
     const index = this.messages.findIndex(item => {
       return item.id === message.id;
     });
