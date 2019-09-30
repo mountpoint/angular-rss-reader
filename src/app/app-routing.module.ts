@@ -3,17 +3,17 @@ import { RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-
 import { StatisticsComponent } from './statistics/statistics.component';
 import { ChannelsComponent } from './channels/channels.component';
 import { ChannelFormComponent } from './channels/channel-form/channel-form.component';
 import { ChannelComponent } from './channels/channel/channel.component';
-import { ChannelResolver } from './core/services/channel-resolver.service';
 import { StatisticComponent } from './statistics/statistic/statistic.component';
 import { ChannelMessageComponent } from './channels/channel/channel-message/channel-message.component';
+import { StatisticMessageComponent } from './statistics/statistic/statistic-message/statistic-message.component';
+
+import { ChannelResolver } from './core/services/channel-resolver.service';
 import { MessageResolver } from './core/services/message-resolver.service';
 import { StatisticResolver } from './core/services/statistic-resolver.service';
-import { StatisticMessageComponent } from './statistics/statistic/statistic-message/statistic-message.component';
 
 const routes = [
   /*{

@@ -9,6 +9,7 @@ import { ChannelComponent } from './channel/channel.component';
 import { ChannelsListComponent } from './channels-list/channels-list.component';
 import { ChannelFormComponent } from './channel-form/channel-form.component';
 import { ChannelMessagesListComponent } from './channel/channel-messages-list/channel-messages-list.component';
+import { ChannelMessageComponent } from './channel/channel-message/channel-message.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ChannelMessagesListComponent } from './channel/channel-messages-list/ch
     ChannelComponent,
     ChannelsListComponent,
     ChannelFormComponent,
-    ChannelMessagesListComponent
+    ChannelMessagesListComponent,
+    ChannelMessageComponent
   ],
   imports: [
     CommonModule,
