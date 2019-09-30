@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
-import { Message } from '../../../shared/models/message.model';
+import { ChannelMessage } from '../../../shared/models/channel-message.model';
 declare var $: any;
 
 @Component({
   selector: 'app-message',
-  templateUrl: './message.component.html',
-  styleUrls: ['./message.component.scss']
+  templateUrl: './channel-message.component.html',
+  styleUrls: ['./channel-message.component.scss']
 })
-export class MessageComponent implements OnInit {
-  message: Message;
+export class ChannelMessageComponent implements OnInit {
+  message: ChannelMessage;
 
   constructor(private router: Router, private route: ActivatedRoute) { }
 

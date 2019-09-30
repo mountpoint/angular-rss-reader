@@ -1,4 +1,4 @@
-export class Message {
+export class ChannelMessage {
   wasRead: boolean = false;
 
   constructor(public id: string,
